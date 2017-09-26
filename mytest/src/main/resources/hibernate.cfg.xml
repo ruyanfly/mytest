@@ -6,13 +6,19 @@
 <hibernate-configuration>  
     <session-factory>  
         <!-- 设置数据库驱动 -->  
+        <!-- mysql5是:com.mysql.jdbc.Driver
+        	 mysql6是:com.mysql.cj.jdbc.Driver -->
         <property name="hibernate.connection.driver_class">
-        	com.mysql.jdbc.Driver
+        	com.mysql.cj.jdbc.Driver
         </property>  
         
-        <!-- 设置数据库URL -->  
+        <!-- 设置数据库URL -->
+        <!-- mysql5链接是:jdbc:mysql://localhost:3306/ruyanfly 
+        	mysql6及以上版本需要使用SSL也就是在后面添加: 
+        	?useSSL=falseuse&useUnicode=true&useJDBCCompliantTimezoneShift=true
+        	&useLegacyDatetimeCode=false&serverTimezone=UTC,这里需要用&amp;代替;-->
         <property name="hibernate.connection.url">
-        	jdbc:mysql://localhost:3306/ruyanfly
+        	jdbc:mysql://localhost:3306/ruyanfly?useSSL=false&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC
         </property>  
         
         <!-- 数据库用户名 -->  
@@ -85,12 +91,12 @@
         </property>
         
         <!--C3P0 数据源(数据库连接池) -->
-        <property name="hibernate.connection.provider_class">
+        <!--  <property name="hibernate.connection.provider_class">
         	org.hibernate.c3p0.internal.C3P0ConnectionProvider
-        </property>
+        </property> -->
         
         <!-- 映射文件 -->  
-        <mapping resource=""/>
-        <mapping class="model.User"/>
+        <mapping resource="src/main/java/model/user.hbm.xml"/>
+        <!-- <mapping class="model.User"/> -->
     </session-factory>  
 </hibernate-configuration> 
