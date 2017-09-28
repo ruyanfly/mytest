@@ -95,8 +95,9 @@
         	org.hibernate.c3p0.internal.C3P0ConnectionProvider
         </property> -->
         
-        <!-- 映射文件 -->  
-        <mapping resource="src/main/java/model/user.hbm.xml"/>
+        <!-- 映射文件 -->
+        <!-- 映射的两种方式通过注解或者是XML文件 -->  
+        <mapping resource="model/*.hbm.xml"/>
         <!-- <mapping class="model.User"/> -->
     </session-factory>  
 </hibernate-configuration> 

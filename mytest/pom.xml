@@ -58,5 +58,23 @@
   </dependencies>
   <build>
     <finalName>mytest</finalName>
+    <!-- maven项目中需要把所需的资源文件复制到target/classes文件夹下,才能被系统读取 -->
+    <resources>
+        <resource>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.xml</include>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+    </resources>
+    
   </build>
 </project>
