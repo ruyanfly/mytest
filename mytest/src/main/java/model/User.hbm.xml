@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hibernate.entities">
+	<class name="model.User" table="ruyanfly_user" dynamic-update="true" dynamic-insert="true">
+		<!-- 首先是设置主键id -->
+		<id name="id" type="java.lang.Integer">
+			<column name="user_id" not-null="true"/>
+			<generator class="increment"/>
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="user_name" length="50"/>
+		</property>
+		
+		<!--
+		<property name="name" type="string" column="userName" update="false" index="" length="50">
+		</property>
+		<property generated="never" lazy="false" name="userName" type="java.lang.String">
+			<column length="50" name="name" not-null="false"/>
+		</property>
+		-->
+	</class>
+</hibernate-mapping>
