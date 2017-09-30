@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 public class HibernateSessionFactory {
 	/** 
@@ -75,5 +76,57 @@ public class HibernateSessionFactory {
      * Default constructor.
      */
     private HibernateSessionFactory() {
+    }
+    
+    /**
+     * Returns the ThreadLocal Session instance.  Lazy initialize
+     * the <code>SessionFactory</code> if needed.
+     *
+     *  @return Session
+     *  @throws HibernateException
+     */
+    public static Session getSession() throws HibernateException {
+        Session session = (Session) threadLocal.get();
+        if (session == null || !session.isOpen()) {
+            if (sessionFactory == null) {
+                rebuildSessionFactory();
+            }
+            session = (sessionFactory != null) ? sessionFactory.openSession() : null;
+            threadLocal.set(session);
+        }
+
+        return session;
+    }
+
+    /**
+     *  Rebuild hibernate session factory
+     *
+     */
+    public static void rebuildSessionFactory() {
+        try {
+        	cfg.configure();
+//            serviceRegistry = new ServiceRegistryBuilder().applySettings(cfg.getProperties()).buildServiceRegistry();
+//            sessionFactory = cfg.buildSessionFactory(serviceRegistry);
+//        	hibernate4.*版本用上述方式,hibernate5.*以后用以下方法
+            ServiceRegistry serviceRegistry= new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
+        } catch (Exception e) {
+            System.err.println("%%%% Error Creating SessionFactory %%%%");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *  return session factory
+     *
+     */
+    public static org.hibernate.SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+    /**
+     *  return hibernate configuration
+     *
+     */
+    public static Configuration getConfiguration() {
+        return cfg;
     }
 }
