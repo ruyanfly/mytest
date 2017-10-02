@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 下面这句很重要,如果没有会导致系统找不到structs.xml -->
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" 
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<constant name="struts.devMode" value="false"></constant>
+	<constant name="struts.i18n.reload" value="false"></constant>
+	
+	<include file="struts-default.xml" />
+	
+	<!-- 多个package可以并行存在，通过页面form表单中的action方法来识别那个package -->
+	<package name="default" namespace="" extends="struts-default">
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<!-- action name 是从JSP文件中form表单里的action对应，
+			{n}表示命名规则中的第几个可以自由选择 
+			针对后台Action有多个方法的情况-->
+		<action name="*_*" class="action.{1}Action" method="{2}">
+			<result name="success">success.jsp</result>
+			<result name="error">fail.jsp</result>
+        </action>
+    </package>
+    
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <!-- 上面是action动态方法调用DMI，需要页面form表单中的action方法是
+    	本文件中package的name/action的name!方法名加后缀.action，其中！不能缺少 -->
+    <package name="ruyanfly" namespace="/ruyanfly" extends="struts-default">
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<!-- action name 是从JSP文件中form表单里的action对应，
+			{n}表示命名规则中的第几个可以自由选择 针对后台Action有多个方法的情况，
+			默认是页面form表单中action为本文件中action的name后缀.action-->
+		<action name="hello" class="ruyanfly.HelloWorld" method="sayHello">
+		<!-- 在有namespace情况下返回页面如果是在根目录需要要加上/，
+			否则返回的页面将为/ruyanfly/success.jsp -->
+			<result name="success">/success.jsp</result>
+			<result name="error">/fail.jsp</result>
+        </action>
+    </package>
+    
+</struts>

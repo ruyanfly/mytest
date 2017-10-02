@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.springframework.org/schema/beans" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<bean id="person" class="action.Person">
+		<property name="name" value="xingoo"/>
+		<property name="age" value="12"/>
+	</bean>
+	
+	<bean id="springHelloWorld" class="src.test.java.helloworld.impl.SpringHelloWorld">
+    </bean>
+    
+    <bean id="strutsHelloWorld" class="src.test.java.helloworld.impl.StrutsHelloWorld">
+    </bean>
+    
+    <bean id="helloWorldService" class="src.test.java.helloworld.HelloWorldService">
+        <property name="helloWorld" ref="springHelloWorld"/>
+    </bean>
+    
+</beans>

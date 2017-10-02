@@ -1,0 +1,4 @@
+该目录下的HibernateSessionFactory.java类是一个辅助类,
+用于创建Hibernate的Session,
+这是一个持久化管理器,通过它从数据库中保存或读取数据库表数据,
+首先需要在代码中从SessionFactory中获取一个Session.

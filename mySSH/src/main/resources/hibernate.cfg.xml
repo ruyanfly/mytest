@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+    <session-factory>  
+        <!-- 设置数据库驱动 -->  
+        <!-- mysql5是:com.mysql.jdbc.Driver
+        	 mysql6是:com.mysql.cj.jdbc.Driver -->
+        <property name="hibernate.connection.driver_class">
+        	com.mysql.cj.jdbc.Driver
+        </property>  
+        
+        <!-- 设置数据库URL -->
+        <!-- mysql5链接是:jdbc:mysql://localhost:3306/ruyanfly 
+        	mysql6及以上版本需要使用SSL也就是在后面添加: 
+        	?useSSL=falseuse&useUnicode=true&useJDBCCompliantTimezoneShift=true
+        	&useLegacyDatetimeCode=false&serverTimezone=UTC,这里需要用&amp;代替;-->
+        <property name="hibernate.connection.url">
+        	jdbc:mysql://localhost:3306/ruyanfly?useSSL=false&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC
+        </property>  
+        
+        <!-- 数据库用户名 -->  
+        <property name="hibernate.connection.username">
+        	root
+        </property>  
+        
+        <!-- 数据库密码 -->  
+        <property name="hibernate.connection.password">
+        	yanru545
+        </property>  
+        
+        <!-- 数据库连接池的大小 -->
+        <property name="connection.pool_size">
+        	5
+        </property>
+        
+        <!-- 每次从数据库中取出并放到JDBC的Statement中的记录条数.
+        	Fetch Size设的越大,读数据库的次数越少,速度越快,
+        	Fetch Size越小,读数据库的次数越多,速度越慢-->
+        <property name="jdbc.fetch_size">
+        	50
+        </property>
+        
+        <!--批量插入,删除和更新时每次操作的记录数.
+        	Batch Size越大,批量操作的向数据库发送Sql的次数越少,速度就越快,同样耗用内存就越大-->
+        <property name="jdbc.batch_size">
+        	23
+        </property> 
+        
+        <!-- 指定对应数据库的方言，hibernate为了更好适配各种关系数据库,
+        	针对每种数据库都指定了一个方言dialect,当前选择为最短的 -->  
+        <property name="hibernate.dialect">
+        	org.hibernate.dialect.MySQLDialect
+        </property>  
+        
+        <!-- 操作数据库时向控制台打印sql语句 -->
+        <property name="show_sql">
+        	true
+        </property>
+        
+        <!-- 打印sql语句前将sql语句先格式化  -->
+        <property name="format_sql">
+        	true
+        </property>
+        
+        <!-- 
+        	hbm2ddl.auto: 生成表结构的策略配置
+        	update(最常用的取值): 如果当前数据库中不存在表结构,那么自动创建表结构.
+        		如果存在表结构,并且表结构与实体一致,那么不做修改如果存在表结构,
+        		并且表结构与实体不一致,那么会修改表结构.会保留原有列.
+        	create(很少):无论是否存在表结构.每次启动Hibernate都会重新创建表结构.(数据会丢失)
+        	create-drop(极少): 无论是否存在表结构.每次启动Hibernate都会重新创建表结构.
+        		每次Hibernate运行结束时,删除表结构.
+        	validate(很少):不会自动创建表结构.也不会自动维护表结构.Hibernate只校验表结构.
+        		如果表结构不一致将会抛出异常.
+          -->
+        <property name="hbm2ddl.auto">
+        	update
+        </property>
+        
+        <!-- 事务自动提交  -->
+        <property name="hibernate.connection.autocommit">
+        	true
+        </property>
+        
+        <!-- 将Session与线程绑定,只有配置了该配置,才能使用getCurrentSession -->
+        <property name="hibernate.current_session_context_class">
+        	thread
+        </property>
+        
+        <!--C3P0 数据源(数据库连接池) -->
+        <!--  
+        <property name="hibernate.connection.provider_class">
+        	org.hibernate.c3p0.internal.C3P0ConnectionProvider
+        </property>
+        -->
+        <!-- 指定连接池里最大连接数 -->
+        <!--
+        <property name="hibernate.c3p0.max_size">
+        	20
+        </property>
+        --> 
+        <!-- 指定连接池里最小连接数 -->
+        <!--
+        <property name="hibernate.c3p0.min_size">
+        	1
+        </property>
+        -->  
+        <!-- 指定连接池里连接的超时时长 -->
+        <!--
+        <property name="hibernate.c3p0.timeout">
+        	5000
+        </property>
+        -->
+        <!-- 指定连接池里最大缓存多少个Statement对象 -->
+        <!--
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+        <property name="hibernate.c3p0.acquire_increment">2</property>
+        <property name="hibernate.c3p0.validate">true</property>
+        -->
+        
+        <!-- 映射文件 -->
+        <!-- 映射的两种方式通过注解或者是XML文件 -->  
+        <mapping resource="beans/User.hbm.xml"/>
+        <!-- <mapping class="model.User"/> -->
+    </session-factory>  
+</hibernate-configuration> 
