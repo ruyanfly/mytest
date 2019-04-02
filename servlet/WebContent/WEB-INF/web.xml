@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>servlet</display-name>
+  <servlet>
+    <description>This is the description</description>
+    <display-name>This is the display name</display-name>
+    <servlet-name>servlet</servlet-name>
+    <!-- 这里并不影响url调用servlet，暂时不清楚这里的用途 -->
+    <servlet-class>servlet.ServletTest</servlet-class>
+    <init-param>
+      <param-name>name</param-name>
+      <param-value>ruyanfly</param-value>
+    </init-param>
+    <init-param>
+      <param-name>password</param-name>
+      <param-value>123456</param-value>
+    </init-param>
+  </servlet>
+  <!-- 没有这部分也是可以跳转成功 -->
+  <!--这里使用url跳转结果都是一样
+  <servlet-mapping>
+    <servlet-name>servlet</servlet-name>
+    <url-pattern>/Servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>servlet</servlet-name>
+    <url-pattern>/CheckServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>servlet</servlet-name>
+    <url-pattern>/DrawImage</url-pattern>
+  </servlet-mapping>
+    -->
+  <context-param>
+    <param-name>url</param-name>
+    <param-value>jdbc:mysql://localhost:3306/test</param-value>
+  </context-param>
+  <listener>
+    <listener-class>servlet.Listener</listener-class>
+  </listener>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
